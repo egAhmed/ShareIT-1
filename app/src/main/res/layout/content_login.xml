@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="matheus.costa.shareit.activity.LoginActivity"
+    tools:showIn="@layout/activity_login">
+
+    <TextView
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/logo"
+        android:text="Share IT"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_above="@+id/inputLayoutPassword"
+        android:layout_margin="16dp"
+        android:id="@+id/inputLayoutEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:hint="@string/inputEmail"
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_above="@+id/btnLogin"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:id="@+id/inputLayoutPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:inputType="textPassword"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:hint="@string/inputPassword"
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:textColor="@color/lightGreen700"
+        android:background="@color/grey200"
+        android:textAllCaps="false"
+        android:textSize="20dp"
+        android:layout_above="@+id/tvAccountText"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="@string/login"
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="70dp" />
+
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tvAccountText"
+        android:textSize="16dp"
+        android:textColor="@color/white"
+        android:text="@string/dontHaveAccount"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="64dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

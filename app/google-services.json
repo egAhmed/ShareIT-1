@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "259700014611",
+    "firebase_url": "https://shareit-mpc.firebaseio.com",
+    "project_id": "shareit-mpc",
+    "storage_bucket": "shareit-mpc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259700014611:android:251c030810953aa2",
+        "android_client_info": {
+          "package_name": "matheus.costa.shareit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259700014611-7klfi6n4ah8agbsjjkkgs6giurpfd1lr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHrH1TEcdbI3BoY4Tv3aafJw2dEbOKk18"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

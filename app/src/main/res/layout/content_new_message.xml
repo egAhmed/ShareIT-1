@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey100"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="matheus.costa.shareit.activity.NewMessageActivity"
+    tools:showIn="@layout/activity_new_message">
+
+    <ImageView
+        android:layout_margin="16dp"
+        android:id="@+id/ivProfileNewMessage"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:textSize="18dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_toRightOf="@id/ivProfileNewMessage"
+        android:id="@+id/tvNameNewMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    
+    
+    <EditText
+        android:layout_below="@+id/ivProfileNewMessage"
+        android:padding="8dp"
+        android:background="@drawable/textarea"
+        android:gravity="top"
+        android:hint="@string/message"
+        android:layout_margin="16dp"
+        android:id="@+id/etMessageNewText"
+        android:maxLines="10"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:inputType="text|textMultiLine"/>
+</RelativeLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="users">users</string>
+    <string name="user_uid">userUid</string>
+    <string name="user_profile_image">userProfileImage</string>
+    <string name="user_name">userName</string>
+
+    <string name="messages">messages</string>
+    <string name="message_id">messageId</string>
+    <string name="message_user_uid">messageUserId</string>
+    <string name="message_content">messageContent</string>
+    <string name="message_rate">messageRate</string>
+</resources>

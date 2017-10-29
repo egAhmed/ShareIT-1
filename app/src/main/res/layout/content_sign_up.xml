@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey100"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="matheus.costa.shareit.activity.SignUpActivity"
+    tools:showIn="@layout/activity_sign_up">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/inputLayoutName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:textColor="@color/grey800"
+            android:textColorHint="@color/white"
+            android:inputType="textAutoComplete"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:hint="@string/inputName"
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_below="@+id/inputLayoutName"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/inputLayoutEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:textColor="@color/grey800"
+            android:textColorHint="@color/white"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:hint="@string/inputEmail"
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_below="@+id/inputLayoutEmail"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/inputLayoutPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:textColor="@color/grey800"
+            android:textColorHint="@color/white"
+            android:inputType="textPassword"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:hint="@string/inputPassword"
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_below="@+id/inputLayoutPassword"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/inputLayoutConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:textColor="@color/grey800"
+            android:textColorHint="@color/white"
+            android:inputType="textPassword"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:hint="@string/inputConfirmPassword"
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.design.widget.TextInputLayout>
+    
+    <LinearLayout
+        android:layout_marginBottom="16dp"
+        android:layout_below="@+id/inputLayoutConfirmPassword"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/btnProfileImage"
+            android:textColor="@color/grey100"
+            android:background="@color/lightGreen500"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            android:layout_above="@+id/tvAccountText"
+            android:layout_weight="1"
+            android:text="@string/chooseProfilePic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:id="@+id/ivProfileImage"
+            android:layout_weight="10"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
