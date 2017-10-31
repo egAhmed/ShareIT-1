@@ -2,6 +2,7 @@ package matheus.costa.shareit.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -107,9 +108,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             Log.i(LTAG,"Register Success!");
 
                             GlobalSettings.getInstance().saveAuthenticatedUser(user);
-                            Intent it = new Intent(SignUpActivity.this, MainActivity.class);
-                            startActivity(it);
-                            finish();
                         }
 
                         @Override
@@ -147,7 +145,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 AlertDialog.Builder msg = new AlertDialog.Builder(SignUpActivity.this);
                 msg.setTitle(getString(R.string.welcome));
                 msg.setMessage(getString(R.string.register_successfully));
-                msg.setNeutralButton("OK",null);
+                msg.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent it = new Intent(SignUpActivity.this, MainActivity.class);
+                        startActivity(it);
+                        finish();
+                    }
+                });
                 msg.show();
             }
 

@@ -47,7 +47,7 @@ public class Storage {
         StorageReference imageRef = profileImages.child(userUid + ".jpg");
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        bmp.compress(Bitmap.CompressFormat.JPEG, 50, baos);
         byte[] data = baos.toByteArray();
 
         UploadTask uploadTask = imageRef.putBytes(data);
