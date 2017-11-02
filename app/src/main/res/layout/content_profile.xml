@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="matheus.costa.shareit.activity.ProfileActivity"
+    tools:showIn="@layout/activity_profile"
+    android:background="@color/grey100">
+
+    <ScrollView
+        android:id="@+id/scrollViewProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/relativeImageProfile"
+                android:background="@color/lightGreen300"
+                android:layout_width="match_parent"
+                android:layout_height="240dp">
+
+
+                <ImageView
+                    android:background="@color/lightGreen300"
+                    android:id="@+id/ivProfileImageProfile"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:background="@color/transpBlack"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_marginTop="140dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="22dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/tvNameProfile"
+                    android:text="Matheus Costa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_below="@+id/tvNameProfile"
+                    android:textStyle="normal"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="16dp"
+                    android:textSize="16dp"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/tvEmailProfile"
+                    android:text="matheuscostap@gmail.com"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_marginBottom="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="215dp"
+                android:orientation="horizontal"
+                android:elevation="4dp"
+                android:background="@drawable/material"
+                android:id="@+id/linearFriends"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <LinearLayout
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_marginTop="4dp"
+                        android:id="@+id/tvFriendsLabel"
+                        android:text="@string/friends"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tvFriendsCounter"
+                        android:text="40"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnAddFriend"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:layout_margin="8dp"
+                    android:elevation="2dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_bg"
+                    android:layout_weight="2"
+                    android:text="@string/add_friend"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:background="@color/white"
+                android:layout_below="@+id/linearFriends"
+                android:id="@+id/relativeRecentActivity"
+                android:layout_width="match_parent"
+                android:layout_height="400dp">
+
+                <RelativeLayout
+                    android:id="@+id/header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_margin="16dp"
+                        android:textSize="18dp"
+                        android:text="@string/recent_activity"
+                        android:id="@+id/tvRecentActivityLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_below="@+id/header"
+                    android:id="@+id/lvUserMessages"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

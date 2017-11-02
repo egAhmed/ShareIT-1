@@ -30,4 +30,8 @@
     <string name="message_sent">Messagen sent</string>
     <string name="message_invalid">Please, write something</string>
     <string name="logout">Logout</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="add_friend">Add Friend</string>
+    <string name="friends">Friends</string>
+    <string name="recent_activity">Recent Activity</string>
 </resources>

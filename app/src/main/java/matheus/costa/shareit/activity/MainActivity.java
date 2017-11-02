@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -55,9 +56,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView ivProfileImageToolbar;
     private TextView tvNameToolbar;
     private User user;
+    private RelativeLayout btnLayoutUserAuth;
 
     protected static final int REQUEST_MESSAGE = 10;
     protected static final int RESULT_MESSAGE = 20;
+    protected static final String USER_EXTRA = "user";
 
 
 
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
 
         (fab = (FloatingActionButton) findViewById(R.id.fab)).setOnClickListener(this);
+        (btnLayoutUserAuth = (RelativeLayout) findViewById(R.id.btnLayoutUserAuth)).setOnClickListener(this);
         lvFeed = (RecyclerView) findViewById(R.id.lvFeed);
         ivProfileImageToolbar = (ImageView) findViewById(R.id.ivProfileImageToolbar);
         tvNameToolbar = (TextView) findViewById(R.id.tvNameToolbar);
@@ -102,6 +106,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent it = new Intent(MainActivity.this, NewMessageActivity.class);
                 startActivityForResult(it,REQUEST_MESSAGE);
                 break;
+
+            case R.id.btnLayoutUserAuth:
+                goToProfile(GlobalSettings.getInstance().getAuthenticatedUser());
+                break;
+
         }
     }
 
@@ -123,8 +132,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot) {
-                Message m = dataSnapshot.getValue(Message.class);
-
                 adapter.notifyDataSetChanged();
                 Log.i(LTAG,"Change one message");
             }
@@ -147,6 +154,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onCanceled(DatabaseError databaseError) {
             }
         });
+    }
+
+
+
+    private void goToProfile(User user){
+        Intent it = new Intent(MainActivity.this, ProfileActivity.class);
+        it.putExtra(USER_EXTRA,user);
+        startActivity(it);
     }
 
 

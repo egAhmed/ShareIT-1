@@ -7,6 +7,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -153,6 +154,42 @@ public class Database {
             }
         };
         specificUserRef.addValueEventListener(valueEventListener);
+    }
+
+
+
+    public void retrieveMessagesByUser(String userUid, final DatabaseCallback callback){
+        Query messagesQuery = messageReference.orderByChild(ApplicationConstants.MESSAGE_USER_UID).equalTo(userUid);
+
+        ChildEventListener childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                callback.onChildAdded(dataSnapshot);
+                Log.i(LTAG,"retrieveMessagesByUser() -> onChildAdded()");
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                callback.onChildChanged(dataSnapshot);
+                Log.i(LTAG,"retrieveMessagesByUser() -> onChildChanged()");
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                callback.onCanceled(databaseError);
+            }
+        };
+        messagesQuery.addChildEventListener(childEventListener);
     }
 
 }
