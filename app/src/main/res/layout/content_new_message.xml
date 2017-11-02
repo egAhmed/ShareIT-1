@@ -7,7 +7,8 @@
     android:background="@color/grey100"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="matheus.costa.shareit.activity.NewMessageActivity"
-    tools:showIn="@layout/activity_new_message">
+    tools:showIn="@layout/activity_new_message"
+    android:id="@+id/relativeNewMessage">
 
     <ImageView
         android:layout_margin="16dp"

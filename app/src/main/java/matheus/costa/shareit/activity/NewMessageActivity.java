@@ -1,6 +1,7 @@
 package matheus.costa.shareit.activity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -78,7 +79,8 @@ public class NewMessageActivity extends AppCompatActivity implements View.OnClic
 
                     Database.getInstance().saveMessage(message,user.getUserUid());
 
-                    Snackbar.make(v,getString(R.string.message_sent), Snackbar.LENGTH_LONG);
+                    setResult(MainActivity.RESULT_MESSAGE);
+                    finish();
                 }else{
                     AlertDialog.Builder msg = new AlertDialog.Builder(NewMessageActivity.this);
                     msg.setTitle(getString(R.string.error));

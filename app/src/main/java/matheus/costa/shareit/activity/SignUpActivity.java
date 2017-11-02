@@ -141,7 +141,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             public void onComplete() {
                 Database.getInstance().saveUser(user);
 
-                //TODO MANDAR PARA TELA DE FEED
                 AlertDialog.Builder msg = new AlertDialog.Builder(SignUpActivity.this);
                 msg.setTitle(getString(R.string.welcome));
                 msg.setMessage(getString(R.string.register_successfully));

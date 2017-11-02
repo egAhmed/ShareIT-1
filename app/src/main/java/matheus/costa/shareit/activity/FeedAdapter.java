@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -22,6 +23,7 @@ import matheus.costa.shareit.firebase.Database;
 import matheus.costa.shareit.firebase.DatabaseCallback;
 import matheus.costa.shareit.objects.Message;
 import matheus.costa.shareit.objects.User;
+import matheus.costa.shareit.settings.GlobalSettings;
 
 /**
  * Created by Matheus on 28/10/2017.
@@ -51,12 +53,13 @@ public class FeedAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final FeedListViewHolder viewHolder = (FeedListViewHolder) holder;
 
-        Message message = messages.get(position);
+        final Message message = messages.get(position);
         user = new User();
 
         if (message.getMessageUserId() != null){
             Log.i(LTAG,"onBindViewHolder() Loading info...");
-            Log.i(LTAG,"onBindViewHolder() Message: " + message.getMessageUserId());
+            Log.i(LTAG,"onBindViewHolder() Message Author: " + message.getMessageUserId());
+            Log.i(LTAG,"onBindViewHolder() Message ID: " + message.getMessageUserId());
 
             Database.getInstance().retrieveUser(message.getMessageUserId(), new DatabaseCallback() {
                 @Override
@@ -81,6 +84,22 @@ public class FeedAdapter extends RecyclerView.Adapter {
             viewHolder.getTvMessageFeed().setText(message.getMessageContent());
             viewHolder.getTvRateFeed().setText(String.valueOf(message.getMessageRate()));
             viewHolder.getTvTimeStampFeed().setText(message.getMessageTimeStamp());
+
+            if (message.getMessageRateUsersId().contains(GlobalSettings.getInstance().getAuthenticatedUser().getUserUid())){
+                //If the current authenticated user rated the specific message
+                viewHolder.getBtnLike().setBackground(context.getResources().getDrawable(R.drawable.ic_thumb_up_green_24dp));
+            }else{
+                viewHolder.getBtnLike().setBackground(context.getResources().getDrawable(R.drawable.ic_thumb_up_black_24dp));
+            }
+
+            //Button click event
+            viewHolder.getBtnLike().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    message.userRate(GlobalSettings.getInstance().getAuthenticatedUser().getUserUid());
+                    Database.getInstance().updateMessageRate(message);
+                }
+            });
         }
     }
 

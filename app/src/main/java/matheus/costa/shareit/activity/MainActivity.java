@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -54,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView ivProfileImageToolbar;
     private TextView tvNameToolbar;
     private User user;
+
+    protected static final int REQUEST_MESSAGE = 10;
+    protected static final int RESULT_MESSAGE = 20;
 
 
 
@@ -96,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.fab:
                 Intent it = new Intent(MainActivity.this, NewMessageActivity.class);
-                startActivity(it);
+                startActivityForResult(it,REQUEST_MESSAGE);
                 break;
         }
     }
@@ -109,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot) {
                 Message m = dataSnapshot.getValue(Message.class);
+                m.setMessageId(dataSnapshot.getRef().getKey());
                 messages.add(m);
                 Collections.sort(messages);
                 Collections.reverse(messages);
@@ -119,7 +124,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot) {
                 Message m = dataSnapshot.getValue(Message.class);
-                messages.add(m);
+
+                adapter.notifyDataSetChanged();
                 Log.i(LTAG,"Change one message");
             }
 
@@ -142,6 +148,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_MESSAGE){
+            if (resultCode == RESULT_MESSAGE){
+                messages.clear();
+                load();
+                Snackbar.make(findViewById(R.id.fab),getString(R.string.message_sent), Snackbar.LENGTH_LONG).show();
+            }
+        }
+    }
+
 
 
     @Override

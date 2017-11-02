@@ -18,6 +18,7 @@ public class ApplicationConstants {
     public static final String MESSAGE_CONTENT = "messageContent";
     public static final String MESSAGE_RATE = "messageRate";
     public static final String MESSAGE_TIMESTAMP = "messageTimeStamp";
+    public static final String MESSAGE_RATEUSERSID = "messageRateUsersId";
 
     public static final String PROGILE_IMAGES = "ProfileImages";
 }

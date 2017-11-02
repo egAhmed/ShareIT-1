@@ -9,6 +9,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import matheus.costa.shareit.objects.Message;
 import matheus.costa.shareit.objects.User;
 import matheus.costa.shareit.settings.ApplicationConstants;
@@ -49,6 +52,7 @@ public class Database {
 
 
     //https://www.firebase.com/docs/android/guide/saving-data.html
+    //Search more about listeners for setValue
     public void saveMessage(Message message, String userUid){
         DatabaseReference specificMessageRef = messageReference.push();
 
@@ -56,6 +60,19 @@ public class Database {
         specificMessageRef.child(ApplicationConstants.MESSAGE_CONTENT).setValue(message.getMessageContent());
         specificMessageRef.child(ApplicationConstants.MESSAGE_RATE).setValue(message.getMessageRate());
         specificMessageRef.child(ApplicationConstants.MESSAGE_TIMESTAMP).setValue(message.getMessageTimeStamp());
+        specificMessageRef.child(ApplicationConstants.MESSAGE_RATEUSERSID).setValue(message.getMessageRateUsersId());
+    }
+
+
+
+    public void updateMessageRate(Message message){
+        DatabaseReference specificMessageRef = messageReference.child(message.getMessageId());
+
+        Map<String,Object> updateMap = new HashMap<String,Object>();
+        updateMap.put(ApplicationConstants.MESSAGE_RATEUSERSID,message.getMessageRateUsersId());
+        updateMap.put(ApplicationConstants.MESSAGE_RATE,message.getMessageRate());
+
+        specificMessageRef.updateChildren(updateMap);
     }
 
 
@@ -64,7 +81,7 @@ public class Database {
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.i(LTAG,"onChildAdded() ");
+                Log.i(LTAG,"onChildAdded() :");
                 callback.onChildAdded(dataSnapshot);
             }
 
