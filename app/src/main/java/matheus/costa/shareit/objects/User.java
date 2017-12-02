@@ -1,6 +1,7 @@
 package matheus.costa.shareit.objects;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Matheus on 23/10/2017.
@@ -12,6 +13,15 @@ public class User implements Serializable{
     private String userName;
     private String userProfileImage; //firebase storage image url
     private String userUid; //firebase auth.uid
+    private List<String> userFriends;
+
+    public List<String> getUserFriends() {
+        return userFriends;
+    }
+
+    public void setUserFriends(List<String> userFriends) {
+        this.userFriends = userFriends;
+    }
 
     public String getUserEmail() {
         return userEmail;

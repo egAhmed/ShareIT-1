@@ -21,4 +21,15 @@ public class ApplicationConstants {
     public static final String MESSAGE_RATEUSERSID = "messageRateUsersId";
 
     public static final String PROGILE_IMAGES = "ProfileImages";
+
+    public static final String NOTIFICATIONS = "notifications";
+    public static final String NOTIFICATIONS_USER_OWNER = "notificationUserOwner";
+    public static final String NOTIFICATIONS_TYPE = "notificationType";
+    public static final String NOTIFICATIONS_CONTENT = "notificationContent";
+    public static final String NOTIFICATIONS_TIMESTAMP = "notificationTimeStamp";
+    public static final String NOTIFICATIONS_CHECKED = "notificationChecked";
+
+    //Notifications types
+    public static final String NOTIF_TYPE = "friend_request";
+
 }

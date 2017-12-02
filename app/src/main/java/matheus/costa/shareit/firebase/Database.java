@@ -13,6 +13,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import matheus.costa.shareit.objects.AppNotification;
 import matheus.costa.shareit.objects.Message;
 import matheus.costa.shareit.objects.User;
 import matheus.costa.shareit.settings.ApplicationConstants;
@@ -40,6 +41,7 @@ public class Database {
     private DatabaseReference appReference = firebaseDatabase.getReference();
     private DatabaseReference userReference = appReference.child(ApplicationConstants.USERS);
     private DatabaseReference messageReference = appReference.child(ApplicationConstants.MESSAGES);
+    private DatabaseReference notificationsReference = appReference.child(ApplicationConstants.NOTIFICATIONS);
 
 
     //Only in register time
@@ -62,6 +64,45 @@ public class Database {
         specificMessageRef.child(ApplicationConstants.MESSAGE_RATE).setValue(message.getMessageRate());
         specificMessageRef.child(ApplicationConstants.MESSAGE_TIMESTAMP).setValue(message.getMessageTimeStamp());
         specificMessageRef.child(ApplicationConstants.MESSAGE_RATEUSERSID).setValue(message.getMessageRateUsersId());
+    }
+
+
+
+    public void friendNotification(AppNotification notification){
+        DatabaseReference specificNotifRef = notificationsReference.push();
+
+        specificNotifRef.child(ApplicationConstants.NOTIFICATIONS_USER_OWNER).setValue(notification.getNotificationUserOwner());
+        specificNotifRef.child(ApplicationConstants.NOTIFICATIONS_TYPE).setValue(notification.getNotificationType());
+        specificNotifRef.child(ApplicationConstants.NOTIFICATIONS_CONTENT).setValue(notification.getNotificationContent());
+        specificNotifRef.child(ApplicationConstants.NOTIFICATIONS_TIMESTAMP).setValue(notification.getNotificationTimeStamp());
+        specificNotifRef.child(ApplicationConstants.NOTIFICATIONS_CHECKED).setValue(notification.isNotificationChecked());
+    }
+
+
+
+    public void monitoringNotification(final String userUid){
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                AppNotification notif = dataSnapshot.getValue(AppNotification.class);
+
+                if (notif.getNotificationUserOwner().equals(userUid)){
+                    //Launch notification
+
+                    switch (notif.getNotificationType()){
+                        case ApplicationConstants.NOTIF_TYPE:
+
+                            break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        notificationsReference.addValueEventListener(valueEventListener);
     }
 
 

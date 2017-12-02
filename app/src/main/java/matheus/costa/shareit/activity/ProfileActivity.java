@@ -34,6 +34,7 @@ import matheus.costa.shareit.firebase.Database;
 import matheus.costa.shareit.firebase.DatabaseCallback;
 import matheus.costa.shareit.objects.Message;
 import matheus.costa.shareit.objects.User;
+import matheus.costa.shareit.utils.InterfaceUtils;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -96,7 +97,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getBaseContext(), LinearLayout.VERTICAL);
         dividerItemDecoration.setDrawable(dividerDrawable);
         lvUserMessages.addItemDecoration(dividerItemDecoration);
-        lvUserMessages.clearFocus();
     }
 
 
@@ -112,6 +112,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 Collections.reverse(messages);
                 Log.i(LTAG,"Retrieve one message");
                 adapter.notifyDataSetChanged();
+                scrollViewProfile.scrollTo(0,0);
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot) {
@@ -145,11 +146,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.header:
-                scrollViewProfile.smoothScrollTo(0,300);
+                scrollViewProfile.smoothScrollTo(0,InterfaceUtils.getScreenHeight(this));
                 break;
 
             case R.id.tvRecentActivityLabel:
-                scrollViewProfile.smoothScrollTo(0,300);
+                scrollViewProfile.smoothScrollTo(0,InterfaceUtils.getScreenHeight(this));
                 break;
         }
     }

@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tvNameToolbar;
     private User user;
     private RelativeLayout btnLayoutUserAuth;
+    private ImageButton btnNotifications;
 
     protected static final int REQUEST_MESSAGE = 10;
     protected static final int RESULT_MESSAGE = 20;
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         (fab = (FloatingActionButton) findViewById(R.id.fab)).setOnClickListener(this);
         (btnLayoutUserAuth = (RelativeLayout) findViewById(R.id.btnLayoutUserAuth)).setOnClickListener(this);
+        (btnNotifications = (ImageButton) findViewById(R.id.btnNotifications)).setOnClickListener(this);
         lvFeed = (RecyclerView) findViewById(R.id.lvFeed);
         ivProfileImageToolbar = (ImageView) findViewById(R.id.ivProfileImageToolbar);
         tvNameToolbar = (TextView) findViewById(R.id.tvNameToolbar);
@@ -109,6 +112,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btnLayoutUserAuth:
                 goToProfile(GlobalSettings.getInstance().getAuthenticatedUser());
+                break;
+
+            case R.id.btnNotifications:
+
                 break;
 
         }
