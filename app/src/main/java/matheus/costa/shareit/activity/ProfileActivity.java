@@ -25,15 +25,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import matheus.costa.shareit.R;
 import matheus.costa.shareit.firebase.Database;
 import matheus.costa.shareit.firebase.DatabaseCallback;
+import matheus.costa.shareit.objects.AppNotification;
 import matheus.costa.shareit.objects.Message;
 import matheus.costa.shareit.objects.User;
+import matheus.costa.shareit.settings.ApplicationConstants;
+import matheus.costa.shareit.settings.GlobalSettings;
 import matheus.costa.shareit.utils.InterfaceUtils;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
@@ -97,6 +103,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getBaseContext(), LinearLayout.VERTICAL);
         dividerItemDecoration.setDrawable(dividerDrawable);
         lvUserMessages.addItemDecoration(dividerItemDecoration);
+
+        //Removing the button if the user equals authenticate user
+        if (user.getUserUid().equals(GlobalSettings.getInstance().getAuthenticatedUser().getUserUid())){
+            btnAddFriend.setVisibility(View.GONE);
+        }
     }
 
 
@@ -143,6 +154,18 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnAddFriend:
+                SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+                String date = sdf.format(Calendar.getInstance().getTime());
+
+                Database.getInstance().friendNotification(
+                        new AppNotification()
+                                .setNotificationUserOwner(user.getUserUid())
+                                .setNotificationType(ApplicationConstants.NOTIF_TYPE_FRIEND_REQ)
+                                .setNotificationChecked(false)
+                                .setNotificationContent(GlobalSettings.getInstance().getAuthenticatedUser().getUserName() +
+                                        "," + GlobalSettings.getInstance().getAuthenticatedUser().getUserUid())
+                                .setNotificationTimeStamp(date));
+
                 break;
 
             case R.id.header:

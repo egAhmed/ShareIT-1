@@ -25,6 +25,7 @@ import matheus.costa.shareit.firebase.Authentication;
 import matheus.costa.shareit.firebase.AuthenticationCallBack;
 import matheus.costa.shareit.firebase.Database;
 import matheus.costa.shareit.firebase.DatabaseCallback;
+import matheus.costa.shareit.service.NotificationService;
 import matheus.costa.shareit.settings.GlobalSettings;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -35,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextInputEditText etPassword;
     private TextView tvSignup;
     private Button btnLogin;
+    private LoginActivity activityContext = this;
 
 
 
@@ -108,6 +110,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 public void onChildAdded(DataSnapshot dataSnapshot) {}
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot) {
+                    //Start NotificationService
+                    Intent intent = new Intent(activityContext,NotificationService.class);
+                    startService(intent);
+
                     Intent it = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(it);
                     finish();

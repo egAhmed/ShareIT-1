@@ -34,4 +34,6 @@
     <string name="add_friend">Add Friend</string>
     <string name="friends">Friends</string>
     <string name="recent_activity">Recent Activity</string>
+    <string name="new_friend_notification"> ShareIT</string>
+    <string name="new_friend_notification2">%s wants to be friends with you on ShareIT.</string>
 </resources>

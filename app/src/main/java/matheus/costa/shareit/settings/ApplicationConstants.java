@@ -30,6 +30,6 @@ public class ApplicationConstants {
     public static final String NOTIFICATIONS_CHECKED = "notificationChecked";
 
     //Notifications types
-    public static final String NOTIF_TYPE = "friend_request";
+    public static final String NOTIF_TYPE_FRIEND_REQ = "friend_request";
 
 }

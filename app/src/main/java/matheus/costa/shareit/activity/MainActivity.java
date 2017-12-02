@@ -44,6 +44,7 @@ import matheus.costa.shareit.firebase.Database;
 import matheus.costa.shareit.firebase.DatabaseCallback;
 import matheus.costa.shareit.objects.Message;
 import matheus.costa.shareit.objects.User;
+import matheus.costa.shareit.service.NotificationService;
 import matheus.costa.shareit.settings.GlobalSettings;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {

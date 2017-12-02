@@ -11,7 +11,7 @@ public class AppNotification {
     private String notificationUserOwner; //One notificion entry by user in database
     private String notificationType;
     private String notificationContent;
-    private Date notificationTimeStamp;
+    private String notificationTimeStamp;
     private boolean notificationChecked; //true = no new notification, false = new notification
 
     public AppNotification() {
@@ -44,11 +44,11 @@ public class AppNotification {
         return this;
     }
 
-    public Date getNotificationTimeStamp() {
+    public String getNotificationTimeStamp() {
         return notificationTimeStamp;
     }
 
-    public AppNotification setNotificationTimeStamp(Date notificationTimeStamp) {
+    public AppNotification setNotificationTimeStamp(String notificationTimeStamp) {
         this.notificationTimeStamp = notificationTimeStamp;
         return this;
     }

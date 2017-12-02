@@ -22,13 +22,19 @@ public class NotificationService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
 
         Log.i(LTAG,"Starting NotificationService -> onCreate()");
 
         userUid = GlobalSettings.getInstance().getAuthenticatedUser().getUserUid();
-        Database.getInstance().monitoringNotification(userUid);
+        Database.getInstance().monitoringNotification(this,userUid);
 
         Log.i(LTAG,"NotificationService Started!");
+
+        return START_STICKY;
     }
 
     @Nullable

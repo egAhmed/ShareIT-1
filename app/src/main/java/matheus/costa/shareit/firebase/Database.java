@@ -1,5 +1,6 @@
 package matheus.costa.shareit.firebase;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.database.ChildEventListener;
@@ -13,6 +14,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+import matheus.costa.shareit.notifications.NotificationHelper;
 import matheus.costa.shareit.objects.AppNotification;
 import matheus.costa.shareit.objects.Message;
 import matheus.costa.shareit.objects.User;
@@ -69,7 +71,7 @@ public class Database {
 
 
     public void friendNotification(AppNotification notification){
-        DatabaseReference specificNotifRef = notificationsReference.push();
+        DatabaseReference specificNotifRef = notificationsReference.child(notification.getNotificationUserOwner());
 
         specificNotifRef.child(ApplicationConstants.NOTIFICATIONS_USER_OWNER).setValue(notification.getNotificationUserOwner());
         specificNotifRef.child(ApplicationConstants.NOTIFICATIONS_TYPE).setValue(notification.getNotificationType());
@@ -80,29 +82,34 @@ public class Database {
 
 
 
-    public void monitoringNotification(final String userUid){
-        ValueEventListener valueEventListener = new ValueEventListener() {
+    public void monitoringNotification(final Context context, final String userUid){
+        ChildEventListener childEventListener = new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 AppNotification notif = dataSnapshot.getValue(AppNotification.class);
 
                 if (notif.getNotificationUserOwner().equals(userUid)){
                     //Launch notification
 
                     switch (notif.getNotificationType()){
-                        case ApplicationConstants.NOTIF_TYPE:
 
+                        case ApplicationConstants.NOTIF_TYPE_FRIEND_REQ:
+                            NotificationHelper.showNewFriendNotification(context,notif.getNotificationContent());
                             break;
                     }
                 }
             }
-
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
         };
-        notificationsReference.addValueEventListener(valueEventListener);
+        notificationsReference.child(GlobalSettings.getInstance().getAuthenticatedUser().getUserUid())
+                .addChildEventListener(childEventListener);
     }
 
 

@@ -1,6 +1,7 @@
 package matheus.costa.shareit.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import matheus.costa.shareit.R;
@@ -35,11 +37,13 @@ public class FeedAdapter extends RecyclerView.Adapter {
 
     private List<Message> messages;
     private Context context;
-    private User user;
+    private List<User> users;
+    protected static final String USER_EXTRA = "user";
 
     public FeedAdapter(Context context, List<Message> messages) {
         this.messages = messages;
         this.context = context;
+        this.users = new ArrayList<>();
     }
 
     @Override
@@ -50,21 +54,21 @@ public class FeedAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final FeedListViewHolder viewHolder = (FeedListViewHolder) holder;
 
         final Message message = messages.get(position);
-        user = new User();
 
         if (message.getMessageUserId() != null){
             Log.i(LTAG,"onBindViewHolder() Loading info...");
             Log.i(LTAG,"onBindViewHolder() Message Author: " + message.getMessageUserId());
-            Log.i(LTAG,"onBindViewHolder() Message ID: " + message.getMessageUserId());
 
             Database.getInstance().retrieveUser(message.getMessageUserId(), new DatabaseCallback() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot) {
-                    user = dataSnapshot.getValue(User.class);
+                    User user = dataSnapshot.getValue(User.class);
+                    user.setUserUid(dataSnapshot.getRef().getKey());
+                    users.add(user);
 
                     StorageReference imagemPerfilReference = FirebaseStorage.getInstance().getReferenceFromUrl(user.getUserProfileImage());
                     Glide.with(context).using(new FirebaseImageLoader()).load(imagemPerfilReference).bitmapTransform(new CenterCrop(context)).into(viewHolder.getIvProfileFeed());
@@ -100,11 +104,34 @@ public class FeedAdapter extends RecyclerView.Adapter {
                     Database.getInstance().updateMessageRate(message);
                 }
             });
+
+            //Username click event
+            viewHolder.getTvNameFeed().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goToProfile(users.get(position));
+                }
+            });
+
+            //Photo click event
+            viewHolder.getIvProfileFeed().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goToProfile(users.get(position));
+                }
+            });
         }
     }
 
     @Override
     public int getItemCount() {
         return messages.size();
+    }
+
+
+    private void goToProfile(User user){
+        Intent it = new Intent(context, ProfileActivity.class);
+        it.putExtra(USER_EXTRA,user);
+        context.startActivity(it);
     }
 }
