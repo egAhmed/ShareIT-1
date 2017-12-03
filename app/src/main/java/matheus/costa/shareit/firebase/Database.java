@@ -20,6 +20,7 @@ import matheus.costa.shareit.objects.Message;
 import matheus.costa.shareit.objects.User;
 import matheus.costa.shareit.settings.ApplicationConstants;
 import matheus.costa.shareit.settings.GlobalSettings;
+import matheus.costa.shareit.sqlite.UserLocalSave;
 
 /**
  * Created by Matheus on 23/10/2017.
@@ -83,6 +84,8 @@ public class Database {
 
 
     public void monitoringNotification(final Context context, final String userUid){
+        UserLocalSave localSave = new UserLocalSave(context);
+
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {}
@@ -108,7 +111,7 @@ public class Database {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         };
-        notificationsReference.child(GlobalSettings.getInstance().getAuthenticatedUser().getUserUid())
+        notificationsReference.child(localSave.retrieveUser().getUserUid())
                 .addChildEventListener(childEventListener);
     }
 
@@ -163,7 +166,7 @@ public class Database {
 
 
 
-    public void retrieveAuthUser(final String userUid, final DatabaseCallback callback){
+    public void retrieveAuthUser(final Context context, final String userUid, final DatabaseCallback callback){
         DatabaseReference specificUserRef = userReference.child(userUid);
 
         ValueEventListener valueEventListener = new ValueEventListener() {
@@ -173,6 +176,10 @@ public class Database {
                 User user = dataSnapshot.getValue(User.class);
                 user.setUserUid(userUid);
                 GlobalSettings.getInstance().saveAuthenticatedUser(user);
+
+                //Save in local sqlite to service works
+                UserLocalSave localSave = new UserLocalSave(context);
+                localSave.saveUser(user);
                 callback.onChildChanged(dataSnapshot);
             }
 

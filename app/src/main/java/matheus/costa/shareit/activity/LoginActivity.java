@@ -105,15 +105,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Log.i(LTAG,"User actually authenticated!");
             Log.i(LTAG,"User email: " + firebaseUser.getEmail());
 
-            Database.getInstance().retrieveAuthUser(firebaseUser.getUid(), new DatabaseCallback() {
+            Database.getInstance().retrieveAuthUser(this,firebaseUser.getUid(), new DatabaseCallback() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot) {}
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot) {
-                    //Start NotificationService
-                    Intent intent = new Intent(activityContext,NotificationService.class);
-                    startService(intent);
-
                     Intent it = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(it);
                     finish();

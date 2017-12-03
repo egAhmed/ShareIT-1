@@ -46,6 +46,7 @@ import matheus.costa.shareit.objects.Message;
 import matheus.costa.shareit.objects.User;
 import matheus.costa.shareit.service.NotificationService;
 import matheus.costa.shareit.settings.GlobalSettings;
+import matheus.costa.shareit.sqlite.UserLocalSave;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvNameToolbar = (TextView) findViewById(R.id.tvNameToolbar);
 
         messages = new ArrayList<>();
-        load();
+        loadFeed();
         adapter = new FeedAdapter(this,messages);
         lvFeed.setAdapter(adapter);
 
@@ -99,6 +100,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getBaseContext(),LinearLayout.VERTICAL);
         dividerItemDecoration.setDrawable(dividerDrawable);
         lvFeed.addItemDecoration(dividerItemDecoration);
+
+        //Start NotificationService
+        Intent intent = new Intent(this,NotificationService.class);
+        startService(intent);
     }
 
 
@@ -124,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    private void load(){
+    private void loadFeed(){
         Log.i(LTAG,"LoadFeed");
         Database.getInstance().loadFeed(new DatabaseCallback() {
             @Override
@@ -180,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == REQUEST_MESSAGE){
             if (resultCode == RESULT_MESSAGE){
                 messages.clear();
-                load();
+                loadFeed();
                 Snackbar.make(findViewById(R.id.fab),getString(R.string.message_sent), Snackbar.LENGTH_LONG).show();
             }
         }
@@ -201,6 +206,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         if (id == R.id.action_logout) {
+            //Remove user from local sqlite
+            UserLocalSave localSave = new UserLocalSave(this);
+            localSave.removeUser(user);
+
             Authentication.getInstance().logout();
             Intent it = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(it);

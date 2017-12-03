@@ -8,6 +8,7 @@ import android.util.Log;
 
 import matheus.costa.shareit.firebase.Database;
 import matheus.costa.shareit.settings.GlobalSettings;
+import matheus.costa.shareit.sqlite.UserLocalSave;
 
 /**
  * Created by Matheus on 02/12/2017.
@@ -29,7 +30,8 @@ public class NotificationService extends Service {
 
         Log.i(LTAG,"Starting NotificationService -> onCreate()");
 
-        userUid = GlobalSettings.getInstance().getAuthenticatedUser().getUserUid();
+        UserLocalSave localSave = new UserLocalSave(this);
+        userUid = localSave.retrieveUser().getUserUid();
         Database.getInstance().monitoringNotification(this,userUid);
 
         Log.i(LTAG,"NotificationService Started!");
