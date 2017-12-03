@@ -23,9 +23,10 @@ public class NotificationHelper {
                 new Notification.Builder(context)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),R.mipmap.ic_launcher))
-                .setStyle(new Notification.BigTextStyle().bigText(context.getString(R.string.new_friend_notification,username)))
-                .setContentText(context.getString(R.string.new_friend_notification2))
-                .setVibrate(new long[]{300,300,300,300}).build()
+                .setContentTitle(context.getString(R.string.new_friend_notification))
+                .setStyle(new Notification.BigTextStyle().bigText(context.getString(R.string.new_friend_notification2,username)))
+                /*.setContentText(context.getString(R.string.new_friend_notification2,username))*/
+                .setVibrate(new long[]{150,300,150,300}).build()
         );
     }
 }

@@ -61,4 +61,14 @@ public class AppNotification {
         this.notificationChecked = notificationChecked;
         return this;
     }
+
+    /**
+     *
+     * @return the name of user.
+     */
+    public String getContentForFriendRequest(){
+        String[] splitted = notificationContent.split(",");
+        return splitted[0];
+    }
+
 }

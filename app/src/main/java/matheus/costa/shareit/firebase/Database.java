@@ -84,8 +84,7 @@ public class Database {
 
 
     public void monitoringNotification(final Context context, final String userUid){
-        UserLocalSave localSave = new UserLocalSave(context);
-
+        Query notificationsQuery = notificationsReference.orderByChild(ApplicationConstants.NOTIFICATIONS_USER_OWNER).equalTo(userUid);
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {}
@@ -93,13 +92,12 @@ public class Database {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 AppNotification notif = dataSnapshot.getValue(AppNotification.class);
 
-                if (notif.getNotificationUserOwner().equals(userUid)){
+                if (notif.getNotificationUserOwner().equals(userUid) && !notif.isNotificationChecked()){
                     //Launch notification
-
                     switch (notif.getNotificationType()){
 
                         case ApplicationConstants.NOTIF_TYPE_FRIEND_REQ:
-                            NotificationHelper.showNewFriendNotification(context,notif.getNotificationContent());
+                            NotificationHelper.showNewFriendNotification(context,notif.getContentForFriendRequest());
                             break;
                     }
                 }
@@ -111,8 +109,8 @@ public class Database {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         };
-        notificationsReference.child(localSave.retrieveUser().getUserUid())
-                .addChildEventListener(childEventListener);
+
+        notificationsQuery.addChildEventListener(childEventListener);
     }
 
 
